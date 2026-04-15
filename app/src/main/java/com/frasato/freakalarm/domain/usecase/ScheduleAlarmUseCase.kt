@@ -6,7 +6,7 @@ import com.frasato.freakalarm.domain.repository.AlarmRepository
 class ScheduleAlarmUseCase(
     private val repository: AlarmRepository
 ) {
-    operator fun invoke(alarm: Alarm){
-        repository.schedule(alarm)
+    operator fun invoke(alarm: Alarm): Boolean{
+        return repository.schedule(alarm)
     }
 }
