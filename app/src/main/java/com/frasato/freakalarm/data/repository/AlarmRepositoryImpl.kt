@@ -11,7 +11,7 @@ import com.frasato.freakalarm.domain.repository.AlarmRepository
 class AlarmRepositoryImpl(
     private val context: Context
 ): AlarmRepository {
-    override fun schedule(alarm: Alarm){
+    override fun schedule(alarm: Alarm): Boolean{
         val intent = Intent(context, AlarmReceiver::class.java)
 
         val pendingIntent = PendingIntent.getBroadcast(
@@ -23,10 +23,16 @@ class AlarmRepositoryImpl(
 
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
+        if(!alarmManager.canScheduleExactAlarms()){
+            return false
+        }
+
         alarmManager.setExactAndAllowWhileIdle(
             AlarmManager.RTC_WAKEUP,
             alarm.timeInMillis,
             pendingIntent
         )
+
+        return true
     }
 }
