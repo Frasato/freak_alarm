@@ -32,7 +32,7 @@ fun AlarmScreen(viewModel: AlarmViewModel){
                     }
                     context.startActivity(intent)
                 } else {
-                    viewModel.scheduleTestAlarm()
+                    viewModel.scheduleAlarm()
                 }
             }
         ) {
