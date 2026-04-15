@@ -5,15 +5,25 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import com.frasato.freakalarm.domain.model.Alarm
 import com.frasato.freakalarm.domain.usecase.ScheduleAlarmUseCase
+import java.util.Calendar
 
 class AlarmViewModel(
     private val scheduleAlarmUseCase: ScheduleAlarmUseCase
 ): ViewModel() {
 
-    fun scheduleTestAlarm(): Boolean{
+    fun scheduleAlarm(hour: Int, minutes: Int): Boolean{
+
+        val calendar = Calendar.getInstance()
+        calendar.set(Calendar.HOUR_OF_DAY, hour)
+        calendar.set(Calendar.MINUTE, minutes)
+        calendar.set(Calendar.SECOND, 0)
+        calendar.set(Calendar.MILLISECOND, 0)
+
+        val time = calendar.timeInMillis
+
         val alarm = Alarm(
             id=1,
-            timeInMillis = System.currentTimeMillis() + 60_00,
+            timeInMillis = time,
             isEnabled = true
         )
 
